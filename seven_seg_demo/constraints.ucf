@@ -22,3 +22,8 @@
   NET "SEG_AN[5]" LOC = AA20 | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L61P_1,  Sch name = 7SD-C5
   NET "SEG_AN[4]" LOC = AB21 | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L61N_1,  Sch name = 7SD-C6
 
+##Switches
+  NET "SW[0]"  LOC= V5 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L13N_3,  Sch name = SW0
+  NET "SW[1]"  LOC= U4 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L18P_3,  Sch name = SW1
+  NET "SW[2]"  LOC= V3 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L18N_3,  Sch name = SW2
+  NET "SW[3]"  LOC= P4 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L21P_3,  Sch name = SW3
