@@ -39,6 +39,7 @@ architecture Structural of TopLevel is
   end component;
   component SevenSegEncoder is
     Port(
+      Rst : in std_logic;
       Value : in  natural range 0 to 15;
       DpEnable : in std_logic;
       Segments : out std_logic_vector(7 downto 0));
@@ -58,6 +59,7 @@ architecture Structural of TopLevel is
   signal sel : natural range 0 to 5;
   signal curDigit : natural range 0 to 15;
   signal digits : DigitArray(2 downto 0);
+  signal dpEnable : std_logic;
 
   signal segments : std_logic_vector(7 downto 0);
 begin
@@ -71,6 +73,7 @@ begin
   SEG_DP <= segments(7);
   SEG_AN <= which;
   curDigit <= digits(sel mod 3);
+  dpEnable <= which(0) or which(2);
 
   TAP(7 downto 0) <= segments;
   TAP(13 downto 8) <= which;
@@ -79,8 +82,9 @@ begin
 
   Encoder: SevenSegEncoder
   Port map(
+    Rst => RST,
     Value => curDigit,
-    DpEnable => which(0) or which(2),
+    DpEnable => dpEnable,
     Segments => segments
   );
 
