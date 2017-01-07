@@ -74,3 +74,4 @@ _xmsgs/
 isim/
 *.wdb
 *.xmsgs
+xilinxsim.ini

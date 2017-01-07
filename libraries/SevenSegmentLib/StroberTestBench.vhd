@@ -7,9 +7,14 @@ END StroberTestBench;
 ARCHITECTURE behavior OF StroberTestBench IS 
     -- Component Declaration for the Unit Under Test (UUT)
     COMPONENT Strober
+    GENERIC(
+      NumOutputs : natural;
+      InputClockFreq : natural;
+      PulseWidth : natural);
     PORT(
          CLK : IN  std_logic;
          RST : IN  std_logic;
+         sel : OUT natural range 0 to NumOutputs - 1;
          STROBES : OUT  std_logic_vector(5 downto 0)
         );
     END COMPONENT;
@@ -20,6 +25,7 @@ ARCHITECTURE behavior OF StroberTestBench IS
 
  	--Outputs
    signal STROBES : std_logic_vector(5 downto 0);
+   signal SEL : natural range 0 to 5;
 
    -- Clock period definitions
    constant CLK_period : time := 10 ns;
@@ -27,9 +33,16 @@ ARCHITECTURE behavior OF StroberTestBench IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: Strober PORT MAP (
+   uut: Strober 
+       GENERIC MAP (
+         NumOutputs => 6,
+         InputClockFreq => 100e6,
+         PulseWidth => 1
+        )
+       PORT MAP (
           CLK => CLK,
           RST => RST,
+          SEL => SEL,
           STROBES => STROBES
         );
 
@@ -49,13 +62,6 @@ BEGIN
       RST <= '1';
       wait for 100 ns;
       RST <= '0';
-
-      wait for 1005 ns;
-      RST <= '1';
-
-      wait for 10 ns;
-      RST <= '0';
-
       wait;
    end process;
 

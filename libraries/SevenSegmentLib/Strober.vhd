@@ -10,8 +10,11 @@ entity Strober is
     NumOutputs     : natural := 6;
     -- The frequency of the input clock, in Hz.
     InputClockFreq : natural := 100e6;
-    -- The pulse width for each strobe.
-    PulseWidth     : time := 1 ms);
+    -- The pulse width for each strobe, in ms.
+    -- This originally used the 'time' type, but xst seems to use
+    -- a 32-bit representation, which causes all sorts of overflow
+    -- issues.
+    PulseWidth     : natural := 1);
 
   Port(
     CLK     : in  STD_LOGIC;
@@ -21,7 +24,8 @@ entity Strober is
 end Strober;
 
 architecture Behavioral of Strober is
-  constant clockDiv  : natural := (InputClockFreq * PulseWidth) / (1 sec);
+  constant msecPerSec : natural := 1000;
+  constant clockDiv  : natural := InputClockFreq * PulseWidth / msecPerSec;
   signal   counter   : natural range 0 to clockDiv := 0;
   signal   idx       : natural range 0 to NumOutputs - 1 := 0;
 begin
