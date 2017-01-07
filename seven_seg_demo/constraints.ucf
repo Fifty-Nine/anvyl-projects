@@ -1,0 +1,24 @@
+##Clock Signal 100MHz
+  NET CLK LOC=D11 |  IOSTANDARD = "LVCMOS33";
+  NET "CLK" TNM_NET = sys_clk_pin;
+  TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100000 kHz;
+  
+  NET "RST"  LOC = E6 | IOSTANDARD=LVCMOS18; #Bank = 3, pin name = IO_L82P_3, Sch name = BTN0
+
+## 7 Segment Display
+  NET "SEG_A"  LOC=AA21 | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L63P_1,  Sch name = 7SD-AA
+  NET "SEG_B"  LOC=AA22 | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L63N_1,  Sch name = 7SD-AB
+  NET "SEG_C"  LOC=Y22  | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L59N_1,  Sch name = 7SD-AC
+  NET "SEG_D"  LOC=N15  | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L60P_1,  Sch name = 7SD-AD
+  NET "SEG_E"  LOC=AB19 | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L65P_1,  Sch name = 7SD-AE
+  NET "SEG_F"  LOC=P20  | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L64N_1,  Sch name = 7SD-AF
+  NET "SEG_G"  LOC=Y21  | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L59P_1,  Sch name = 7SD-AG
+  NET "SEG_DP" LOC=P15  | IOSTANDARD=LVCMOS33;      #Bank = 1, pin name = IO_L62P_1,  Sch name = 7SD-DP
+
+  NET "SEG_AN[1]" LOC = P16  | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L62N_1,  Sch name = 7SD-C1
+  NET "SEG_AN[0]" LOC = M17  | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L58N_1,  Sch name = 7SD-C2
+  NET "SEG_AN[3]" LOC = N16  | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L60N_1,  Sch name = 7SD-C3
+  NET "SEG_AN[2]" LOC = P19  | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L64P_1,  Sch name = 7SD-C4
+  NET "SEG_AN[5]" LOC = AA20 | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L61P_1,  Sch name = 7SD-C5
+  NET "SEG_AN[4]" LOC = AB21 | IOSTANDARD=LVCMOS33;    #Bank = 1, pin name = IO_L61N_1,  Sch name = 7SD-C6
+
