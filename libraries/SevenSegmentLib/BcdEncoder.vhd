@@ -23,6 +23,11 @@ end BcdEncoder;
 
 architecture Behavioral of BcdEncoder is
 begin
+  assert 10**NumDigits >= 2**Width
+    report "Input range (" & natural'image(2**Width) & ")" &
+           "exceeds output range (" & natural'image(10**NumDigits) & ")."
+    severity failure;
+
   process (Input)
     variable acc : natural;
   begin
