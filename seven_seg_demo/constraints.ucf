@@ -27,3 +27,7 @@
   NET "SW[1]"  LOC= U4 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L18P_3,  Sch name = SW1
   NET "SW[2]"  LOC= V3 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L18N_3,  Sch name = SW2
   NET "SW[3]"  LOC= P4 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L21P_3,  Sch name = SW3
+  NET "SW[4]"  LOC= R4 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L21N_3,  Sch name = SW4
+  NET "SW[5]"  LOC= P6 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L22P_3,  Sch name = SW5
+  NET "SW[6]"  LOC= P5 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L22N_3,  Sch name = SW6
+  NET "SW[7]"  LOC= P8 | IOSTANDARD=LVCMOS18;    #Bank = 3, pin name = IO_L23P_3,  Sch name = SW7

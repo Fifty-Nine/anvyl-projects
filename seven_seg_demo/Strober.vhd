@@ -16,14 +16,17 @@ entity Strober is
   Port(
     CLK     : in  STD_LOGIC;
     RST     : in  STD_LOGIC;
+    SEL     : out natural range 0 to NumOutputs - 1;
     STROBES : out STD_LOGIC_VECTOR (NumOutputs - 1 downto 0));
 end Strober;
 
 architecture Behavioral of Strober is
   constant clockDiv  : natural := (InputClockFreq * PulseWidth) / (1 sec);
   signal   counter   : natural range 0 to clockDiv := 0;
-  signal   idx       : natural range 0 to numOutputs - 1 := 0;
+  signal   idx       : natural range 0 to NumOutputs - 1 := 0;
 begin
+  SEL <= idx;
+
   process (RST, CLK)
   begin
     if RST = '1' then
