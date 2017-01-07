@@ -40,13 +40,8 @@ architecture Structural of TopLevel is
   component SevenSegEncoder is
     Port(
       Value : in  natural range 0 to 15;
-      SegA  : out STD_LOGIC;
-      SegB  : out STD_LOGIC;
-      SegC  : out STD_LOGIC;
-      SegD  : out STD_LOGIC;
-      SegE  : out STD_LOGIC;
-      SegF  : out STD_LOGIC;
-      SegG  : out STD_LOGIC);
+      DpEnable : in std_logic;
+      Segments : out std_logic_vector(7 downto 0));
   end component;
 
   component BcdEncoder is
@@ -76,7 +71,6 @@ begin
   SEG_DP <= segments(7);
   SEG_AN <= which;
   curDigit <= digits(sel mod 3);
-  segments(7) <= which(0) or which(2);
 
   TAP(7 downto 0) <= segments;
   TAP(13 downto 8) <= which;
@@ -86,13 +80,8 @@ begin
   Encoder: SevenSegEncoder
   Port map(
     Value => curDigit,
-    SegA => segments(0),
-    SegB => segments(1),
-    SegC => segments(2),
-    SegD => segments(3),
-    SegE => segments(4),
-    SegF => segments(5),
-    SegG => segments(6)
+    DpEnable => which(0) or which(2),
+    Segments => segments
   );
 
   SevenSegSelect: Strober
