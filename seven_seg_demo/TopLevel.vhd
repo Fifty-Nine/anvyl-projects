@@ -26,17 +26,33 @@ end TopLevel;
 architecture Structural of TopLevel is
 
   component NumericDisplay
+  generic (
+    Width : natural
+  );
 	port(
 		Rst      : in  std_logic;
 		Clk      : in  std_logic;
-		Inputs   : in  std_logic_vector(15 downto 0);          
+		Inputs   : in  std_logic_vector(17 downto 0);          
 		Segments : out std_logic_vector(7 downto 0);
 		Anodes   : out std_logic_vector(5 downto 0));
 	end component;
 
+  component MicroBlaze
+  port (
+    Clk : in std_logic;
+    Reset : in std_logic;
+    Gpo1 : out std_logic_vector(31 downto 0);
+    Gpi1 : in std_logic_vector(31 downto 0);
+    Gpi1_interrupt : out std_logic
+  );
+  end component;
+
   signal segments : std_logic_vector(7 downto 0);
   signal anodes   : std_logic_vector(5 downto 0);
-  signal value    : std_logic_vector(15 downto 0);
+  signal value    : std_logic_vector(17 downto 0);
+
+  signal MbOutput : std_logic_vector(31 downto 0);
+  signal MbInput  : std_logic_vector(31 downto 0);
 begin
   
 
@@ -54,17 +70,27 @@ begin
   TAP(13 downto 8) <= anodes;
   TAP(15 downto 14) <= "00";
 
+  MbInput(7 downto 0) <= SW;
+  MbInput(31 downto 8) <= (others => '0');
+
+  value(17 downto 0) <= MbOutput(17 downto 0);
+
   Disp: NumericDisplay
+  Generic map(Width => 9)
   Port map(
     Rst => RST,
     Clk => CLK,
     Inputs => value,
     Segments => segments,
     Anodes => anodes);
-
-  value(15 downto 8) <= sw(7) & '0' & sw(6) & '0' & sw(5) & '0' & sw(4) & '0';
-  value(7 downto 0) <= '1' & sw(3) & '0' & sw(2) & '0' & sw(1) & '0' & sw(0);
   
+  mcs_0: MicroBlaze
+  Port map(
+    Clk => CLK,
+    Reset => RST,
+    Gpo1 => MbOutput,
+    Gpi1 => MbInput
+  );
 
  end Structural;
 
