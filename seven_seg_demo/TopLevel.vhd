@@ -24,45 +24,22 @@ entity TopLevel is
 end TopLevel;
 
 architecture Structural of TopLevel is
-  component Strober is
-    Generic(
-      NumOutputs     : natural;
-      InputClockFreq : natural;
-      PulseWidth     : natural);
 
-    Port(
-      CLK     : in  STD_LOGIC;
-      RST     : in  STD_LOGIC;
-      SEL     : out natural range 0 to NumOutputs - 1;
-      STROBES : out STD_LOGIC_VECTOR (NumOutputs - 1 downto 0));
-
-  end component;
-  component SevenSegEncoder is
-    Port(
-      Rst : in std_logic;
-      Value : in  natural range 0 to 15;
-      DpEnable : in std_logic;
-      Segments : out std_logic_vector(7 downto 0));
-  end component;
-
-  component BcdEncoder is
-    Generic(
-      NumDigits : natural;
-      Width : natural);
-
-    Port(
-      Input  : in  std_logic_vector(Width - 1 downto 0);
-      Output : out DigitArray(NumDigits - 1 downto 0));
-  end component;
-
-  signal which : std_logic_vector(5 downto 0);
-  signal sel : natural range 0 to 5;
-  signal curDigit : natural range 0 to 15;
-  signal digits : DigitArray(2 downto 0);
-  signal dpEnable : std_logic;
+  component NumericDisplay
+	port(
+		Rst      : in  std_logic;
+		Clk      : in  std_logic;
+		Inputs   : in  std_logic_vector(15 downto 0);          
+		Segments : out std_logic_vector(7 downto 0);
+		Anodes   : out std_logic_vector(5 downto 0));
+	end component;
 
   signal segments : std_logic_vector(7 downto 0);
+  signal anodes   : std_logic_vector(5 downto 0);
+  signal value    : std_logic_vector(15 downto 0);
 begin
+  
+
   SEG_A <= segments(0);
   SEG_B <= segments(1);
   SEG_C <= segments(2);
@@ -71,46 +48,25 @@ begin
   SEG_F <= segments(5);
   SEG_G <= segments(6);
   SEG_DP <= segments(7);
-  SEG_AN <= which;
-  curDigit <= digits(sel mod 3);
-  dpEnable <= which(0) or which(2);
+  SEG_AN <= anodes;
 
   TAP(7 downto 0) <= segments;
-  TAP(13 downto 8) <= which;
+  TAP(13 downto 8) <= anodes;
   TAP(15 downto 14) <= "00";
 
-
-  Encoder: SevenSegEncoder
+  Disp: NumericDisplay
   Port map(
     Rst => RST,
-    Value => curDigit,
-    DpEnable => dpEnable,
-    Segments => segments
-  );
+    Clk => CLK,
+    Inputs => value,
+    Segments => segments,
+    Anodes => anodes);
 
-  SevenSegSelect: Strober
-  Generic map(
-    NumOutputs     => 6,
-    InputClockFreq => 100e6,
-    PulseWidth     => 1 -- ms
-  )
-  Port map(
-    CLK => CLK,
-    RST => RST,
-    SEL => SEL,
-    STROBES => which
-  );
+  value(15 downto 8) <= sw(7) & '0' & sw(6) & '0' & sw(5) & '0' & sw(4) & '0';
+  value(7 downto 0) <= '1' & sw(3) & '0' & sw(2) & '0' & sw(1) & '0' & sw(0);
+  
 
-  BcdEncode: BcdEncoder
-  Generic map(
-    NumDigits => 3,
-    Width => 8
-  )
-  Port map(
-    Input => SW,
-    Output => digits
-  );
-end Structural;
+ end Structural;
 
 
 
