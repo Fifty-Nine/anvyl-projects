@@ -8,19 +8,21 @@ use SevenSegmentLib.BcdPkg.ALL;
 entity TopLevel is
   Generic( numSegments : natural := 6 );
   Port (
-    CLK    : in   STD_LOGIC;
-    RST    : in   STD_LOGIC;
-    SW     : in   STD_LOGIC_VECTOR(7 downto 0);
-    SEG_A  : out  STD_LOGIC;
-    SEG_B  : out  STD_LOGIC;
-    SEG_C  : out  STD_LOGIC;
-    SEG_D  : out  STD_LOGIC;
-    SEG_E  : out  STD_LOGIC;
-    SEG_F  : out  STD_LOGIC;
-    SEG_G  : out  STD_LOGIC;
-    SEG_DP : out  STD_LOGIC;
-    SEG_AN : out  STD_LOGIC_VECTOR (numSegments - 1 downto 0);
-    TAP    : out  STD_LOGIC_VECTOR (15 downto 0));
+    CLK     : in  STD_LOGIC;
+    RST     : in  STD_LOGIC;
+    SW      : in  STD_LOGIC_VECTOR(7 downto 0);
+    SEG_A   : out STD_LOGIC;
+    SEG_B   : out STD_LOGIC;
+    SEG_C   : out STD_LOGIC;
+    SEG_D   : out STD_LOGIC;
+    SEG_E   : out STD_LOGIC;
+    SEG_F   : out STD_LOGIC;
+    SEG_G   : out STD_LOGIC;
+    SEG_DP  : out STD_LOGIC;
+    SEG_AN  : out STD_LOGIC_VECTOR (numSegments - 1 downto 0);
+    UART_RX : in  STD_LOGIC;
+    UART_TX : out STD_LOGIC;
+    TAP     : out STD_LOGIC_VECTOR (15 downto 0));
 end TopLevel;
 
 architecture Structural of TopLevel is
@@ -37,10 +39,12 @@ architecture Structural of TopLevel is
 		Anodes   : out std_logic_vector(5 downto 0));
 	end component;
 
-  component MicroBlaze
+  component MB
   port (
     Clk : in std_logic;
     Reset : in std_logic;
+    UART_Rx : IN STD_LOGIC;
+    UART_Tx : OUT STD_LOGIC;
     Gpo1 : out std_logic_vector(31 downto 0);
     Gpi1 : in std_logic_vector(31 downto 0);
     Gpi1_interrupt : out std_logic
@@ -53,6 +57,9 @@ architecture Structural of TopLevel is
 
   signal MbOutput : std_logic_vector(31 downto 0);
   signal MbInput  : std_logic_vector(31 downto 0);
+  
+  signal MbUartRx : std_logic;
+  signal MbUartTx : std_logic;
 begin
   
 
@@ -65,10 +72,15 @@ begin
   SEG_G <= segments(6);
   SEG_DP <= segments(7);
   SEG_AN <= anodes;
+  
+  MbUartRx <= UART_RX;
+  UART_TX <= MbUartTx;
 
   TAP(7 downto 0) <= segments;
   TAP(13 downto 8) <= anodes;
-  TAP(15 downto 14) <= "00";
+  TAP(14) <= MbUartRx;
+  TAP(15) <= MbUartTx;
+  
 
   MbInput(7 downto 0) <= SW;
   MbInput(31 downto 8) <= (others => '0');
@@ -84,10 +96,12 @@ begin
     Segments => segments,
     Anodes => anodes);
   
-  mcs_0: MicroBlaze
+  mcs_0: MB
   Port map(
     Clk => CLK,
     Reset => RST,
+    UART_Rx => MbUartRx,
+    UART_Tx => MbUartTx,
     Gpo1 => MbOutput,
     Gpi1 => MbInput
   );

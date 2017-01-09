@@ -75,3 +75,5 @@ isim/
 *.wdb
 *.xmsgs
 xilinxsim.ini
+*.mem
+*/ipcore_dir/tmp/

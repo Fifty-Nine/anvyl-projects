@@ -50,3 +50,6 @@ NET "TAP[13]" LOC = AA8  | IOSTANDARD=LVCMOS33;    #Bank = 2, pin name = IO_L49P
 NET "TAP[14]" LOC = W9   | IOSTANDARD=LVCMOS33;    #Bank = 2, pin name = IO_L47P_2,    Sch name = JE8
 NET "TAP[15]" LOC= AB8   | IOSTANDARD=LVCMOS33;    #Bank = 2, pin name = IO_L49N_D4_2, Sch name = JE10
 
+# UART
+NET "Uart_TX" LOC =T20 | IOSTANDARD = "LVCMOS33";
+NET "Uart_RX" LOC =T19 | IOSTANDARD = "LVCMOS33";
