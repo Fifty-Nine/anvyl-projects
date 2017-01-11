@@ -28,18 +28,25 @@ package body TmdsUtils is
   function calcQ_m(data: std_logic_vector)
     return std_logic_vector is
     variable result : std_logic_vector(8 downto 0);
-    variable use_xnor : boolean := 
-      (countBits(data, '1') > 4) or (countBits(data, '1') = 4 and data(0) = '1');
+
+    variable numOnes : natural := countBits(data, '1');
   begin
     result(0) := data(0);
+
+    if numOnes > 4 or (numOnes = 4 and data(0) = '1') then
+      result(8) := '1';
+    else
+      result(8) := '0';
+    end if;
+
     for i in 1 to 7 loop
-      if use_xnor then
-        result(i) := result(i - 1) xnor data(i);
-      else
+      if result(8) = '1' then
         result(i) := result(i - 1) xor data(i);
+      else
+        result(i) := result(i - 1) xnor data(i);
       end if;
     end loop;
-    result(8) := '1';
+
     return result;
   end calcQ_m;
 
