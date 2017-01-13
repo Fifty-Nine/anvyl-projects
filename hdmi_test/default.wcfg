@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/princet/Documents/anvyl-projects/hdmi_test/TmdsSerializerTestBench_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="components" />
+            <top_module name="math_real" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="tmdsserializertestbench" />
+            <top_module name="vcomponents" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="10" />
+   <wave_markers>
+      <marker time="429833000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/tmdsserializertestbench/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/pixelclk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pixelclk</obj_property>
+      <obj_property name="ObjectShortName">pixelclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/pixelclkx2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pixelclkx2</obj_property>
+      <obj_property name="ObjectShortName">pixelclkx2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/pixelclkx10" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pixelclkx10</obj_property>
+      <obj_property name="ObjectShortName">pixelclkx10</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/serdesstrobe" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">serdesstrobe</obj_property>
+      <obj_property name="ObjectShortName">serdesstrobe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/pdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pdata[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pdata[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus21" type="vbus" db_ref_id="1">
+      <obj_property name="label">pdataHI</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[9]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">pdata[9]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[8]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">pdata[8]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[7]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">pdata[7]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[6]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">pdata[6]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[5]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">pdata[5]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus27" type="vbus" db_ref_id="1">
+      <obj_property name="label">pdataLO</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[4]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">pdata[4]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[3]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">pdata[3]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[2]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">pdata[2]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[1]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">pdata[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tmdsserializertestbench/pdata[0]" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">pdata[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/sdata" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">sdata</obj_property>
+      <obj_property name="ObjectShortName">sdata</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tmdsserializertestbench/uut/serdes_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">serdes_data[4:0]</obj_property>
+      <obj_property name="ObjectShortName">serdes_data[4:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+</wave_config>
