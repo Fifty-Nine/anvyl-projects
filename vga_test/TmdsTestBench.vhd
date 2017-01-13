@@ -53,9 +53,19 @@ ARCHITECTURE behavior OF TmdsTestBench IS
   );
   END COMPONENT;
 
+  COMPONENT TmdsSerializer is
+    Port(
+      Reset   : IN  std_logic;
+      PClkx10 : IN  std_logic;
+      PData   : IN  std_logic_vector(9 downto 0);
+      Sync    : OUT std_logic;
+      SData   : OUT std_logic);
+  END COMPONENT;
+
 
   --Inputs
   signal Clk : std_logic := '0';
+  signal PClkx10 : std_logic := '0';
   signal Reset : std_logic := '1';
   signal Data : std_logic_vector(7 downto 0) := (others => '0');
   signal Control : std_logic_vector(1 downto 0) := (others => '0');
@@ -64,6 +74,8 @@ ARCHITECTURE behavior OF TmdsTestBench IS
   --Outputs
   signal TmdsData : std_logic_vector(9 downto 0);
   signal DecodedTmdsData : std_logic_vector(9 downto 0);
+  signal SData : std_logic;
+  signal TmdsSync : std_logic;
 BEGIN
   -- Instantiate the Unit Under Test (UUT)
   uut: TmdsEncoder PORT MAP (
@@ -74,6 +86,14 @@ BEGIN
     DataEnable => DataEnable,
     TmdsData => TmdsData
   );
+
+  uut2: TmdsSerializer PORT MAP (
+    Reset => Reset,
+    PClkx10 => Pclkx10,
+    PData => TmdsData,
+    Sync => TmdsSync,
+    SData => SData
+  );
       
   decode_proc: process (TmdsData, DataEnable)
   begin
@@ -81,11 +101,18 @@ BEGIN
   end process;
       
   clk_process: process
+    variable count : natural range 0 to 9 := 0;
   begin
-    wait for 5 ns;
-    clk <= '1';
-    wait for 5 ns;
-    clk <= '0';
+    if count >= 5 then
+      Clk <= '0';
+    else
+      Clk <= '1';
+    end if;
+    PClkx10 <= '1';
+    wait for 500 ps;
+    PClkx10 <= '0';
+    wait for 500 ps;
+    count := (count + 1) mod 10;
   end process;
 
   stimulus: process
